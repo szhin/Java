@@ -1,6 +1,5 @@
 package GraphWeight;
 
-import java.util.ArrayList;
 import java.util.Stack;
 import java.util.TreeSet;
 
@@ -56,7 +55,7 @@ public abstract class Graph {
     }
 
     // This method check has cycle between two vertex in graph
-    public boolean hasCycleBetweenTwoVer(int start, int end) {
+    public boolean hasCycleBetweenTwoVer(int start, int end, double[][] graph) {
         boolean[] visited = new boolean[numVertices];
         visited[start] = true;
         // stack will contain the vertex being traversed

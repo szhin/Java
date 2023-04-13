@@ -1,5 +1,6 @@
 package GraphWeight;
 
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class UnDirGraph extends Graph {
@@ -96,19 +97,25 @@ public class UnDirGraph extends Graph {
             result[i][j] = Double.POSITIVE_INFINITY;
          }
       }
+      // ArrayList<Double> print = new ArrayList<>();
       TreeSet<Double> treeSet = listEdgeWeightSorted();
+      System.out.println(treeSet);
       while (totalEdge(result) < numVertices - 1) {
          double current = treeSet.first();
          for (int i = 0; i < numVertices; i++) {
             for (int j = 0; j < numVertices; j++) {
-               if (graph[i][j] == current) {
+               if (graph[i][j] == current && !hasCycleBetweenTwoVer(i, j, result)) {
                   result[i][j] = current;
                   result[j][i] = current;
+                  // print.add(result[i][j]);
+                  break;
                } 
             }
          }
          treeSet.pollFirst();
       }
+      // System.out.println();
+      // System.out.println("List Weight: " + print);
       return result;
    }
 
@@ -214,12 +221,19 @@ public class UnDirGraph extends Graph {
 
    ///////////////////////MAIN///////////////////////////
    public static void main(String[] args) {
-      UnDirGraph unDirGraph = new UnDirGraph(4);
-      unDirGraph.addEdge(0, 1, 7);
-      unDirGraph.addEdge(0, 2, 2);
-      unDirGraph.addEdge(0, 3,1);
-      unDirGraph.addEdge(1, 2, 5);
-      unDirGraph.addEdge(1, 3, 2);  
+      // UnDirGraph unDirGraph = new UnDirGraph(4);
+      // unDirGraph.addEdge(0, 1, 7);
+      // unDirGraph.addEdge(0, 2, 2);
+      // unDirGraph.addEdge(0, 3,1);
+      // unDirGraph.addEdge(1, 2, 5);
+      // unDirGraph.addEdge(1, 3, 2);  
+
+      UnDirGraph unDirGraph2 = new UnDirGraph(4);
+      unDirGraph2.addEdge(0, 1, 2);
+      unDirGraph2.addEdge(0, 3, 2);
+      unDirGraph2.addEdge(3, 2,3);
+      unDirGraph2.addEdge(1, 2, 6);
+      unDirGraph2.addEdge(1, 3, 5);  
       // unDirGraph.printGraph();
       // System.out.println("Total edge of the graph: " + unDirGraph.totalEdge());
       // vertex in method degree(vertex)
@@ -234,8 +248,8 @@ public class UnDirGraph extends Graph {
       // unDirGraph.printListEdge();
       // System.out.println(unDirGraph.listEdgeWeightSorted());
    
-      unDirGraph.printGraph(unDirGraph.kruskalAlgorithm(unDirGraph.graph));
+      unDirGraph2.printGraph(unDirGraph2.kruskalAlgorithm(unDirGraph2.graph));
       // unDirGraph.primAlgorithm(unDirGraph.graph, 0);
-      unDirGraph.printGraph(unDirGraph.primAlgorithm(unDirGraph.graph, 0));
+      // unDirGraph2.printGraph(unDirGraph2.primAlgorithm(unDirGraph2.graph, 0));
    }
 }
